@@ -7,6 +7,8 @@ const app = express();
 const port = 3000;
 app.use(cors());
 
+app.set('view engine','ejs');
+
 app.get('/get-content', async (req, res) => {
   try {
     const response = await fetch('https://fortics.statuspage.io/');
@@ -23,7 +25,7 @@ app.get('/get-content', async (req, res) => {
 
     // Remove dados do site
     $('h4.font-largest').remove();
-    
+
     $('div.page-status.status-none').attr('class', 'alert alert-success');
 
     // Adicione a classe "text-center" para centralizar o texto dentro do alerta
@@ -55,6 +57,10 @@ app.get('/get-content', async (req, res) => {
     res.status(500).send('Erro ao obter conteúdo da página.');
   }
 });
+
+app.get('/', async (req, res) => {
+  res.render('index');
+})
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
