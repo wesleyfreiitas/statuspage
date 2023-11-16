@@ -8,6 +8,9 @@ const port = 3000;
 app.use(cors());
 
 app.set('view engine','ejs');
+// Static
+app.use(express.static(__dirname + '/public'));
+app.use("/favicon.ico", express.static("images/favicon.ico"))
 
 app.get('/get-content', async (req, res) => {
   try {
