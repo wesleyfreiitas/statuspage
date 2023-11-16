@@ -1,0 +1,60 @@
+<!-- Seu HTML -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uppchannel - Status</title>
+    <!-- Adicione isso ao head do seu HTML -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+
+</head>
+
+<!-- Substitua o conteúdo do seu corpo HTML com algo semelhante ao seguinte: -->
+<body>
+    <br><br>
+    <div class="container">
+      <div class="row">
+        <!-- <div class="col-md-8"> -->
+          <!-- Conteúdo principal aqui -->
+          <div id="conteudo-replicado"></div>
+        <!-- </div> -->
+        <!-- <div class="col-md-4"> -->
+          <!-- Outro conteúdo ou barra lateral aqui -->
+        <!-- </div> -->
+      </div>
+    </div>
+
+    <!-- Seu script JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function replicarConteudo() {
+                // Faz uma solicitação ao seu servidor para obter o conteúdo
+                fetch('http://localhost:3000/get-content')
+                    .then(response => response.text())
+                    .then(data => {
+                        // Atualiza o conteúdo da div com o ID 'conteudo-replicado'
+                        document.getElementById('conteudo-replicado').innerHTML = new DOMParser()
+                            .parseFromString(data, 'text/html').querySelector('.container').innerHTML;
+                    })
+                    .catch(error => console.error('Erro:', error));
+            }
+
+            // Atualiza o conteúdo a cada X milissegundos (por exemplo, a cada 5 segundos)
+            setInterval(replicarConteudo, 500000);
+
+            // Inicializa o conteúdo pela primeira vez
+            replicarConteudo();
+        });
+    </script>
+    <!-- Adicione isso antes do fechamento da tag body -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
