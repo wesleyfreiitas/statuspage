@@ -23,28 +23,36 @@ app.get('/get-content', async (req, res) => {
     // Isola as divs com a classe 'component-container border-color is-group'
     const isolatedDivs = $('div.component-container.border-color.is-group').clone();
 
+    // Substitua todas as ocorrências de "szchat", "sz.chat", "SZ.Chat" ou "SZ.chat" por "uppchannel"
+    $('body').html($('body').html().replace(/sz\.chat|szchat|SZ\.Chat|SZ\.chat/g, 'uppchannel'));
+
     // Remove as divs com a classe 'component-container border-color'
     $('div.component-container.border-color').remove();
 
     // Remove dados do site
     $('h4.font-largest').remove();
-
+    $('a.subscribe').remove();
+    
     $('div.page-status.status-none').attr('class', 'alert alert-success');
-
+    $('div.unresolved-incident.impact-minor').attr('class', 'alert alert-warning');
+    
     // Adicione a classe "text-center" para centralizar o texto dentro do alerta
     $('.alert.alert-success').addClass('text-center');
-
+    
     $('.components-section.font-regular').addClass('text-center');
-
+    
     // Adiciona as divs isoladas de volta ao documento
     $('div.components-container.one-column').append(isolatedDivs);
-
+    
     // Remove os hiperlinks dentro da classe incidents-list com a classe format-expanded
     $('div.components-uptime-link.history-footer-link a').remove();
+    
     // Remove os hiperlinks dentro da classe incidents-list com a classe format-expanded
     $('div.incidents-list.format-expanded a').contents().unwrap();
-
-    // $('div.spacer').remove();
+    
+    // Remove os hiperlinks dentro da classe incidents-title com a classe format-large
+    $('div.incident-title.font-large a').contents().unwrap();
+  
     $('div.legend-item.light.legend-item-date-range').remove();
     $('div.legend-item.legend-item-uptime-value.legend-item').remove();
     $('div.legend-item').remove();
